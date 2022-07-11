@@ -48,21 +48,16 @@ html
           = headerLine.line
           if i < headerLines.length - 1
             br
-                
     if attachments && attachments.length > 0
       p: strong Attachments:
       ul
         each a in attachments
           li
-            if a.contentType == "message/rfc822"
-              a(href=`${a.content}`, download=a.filename, target='_blank')
-                = `${a.filename + ".html"}`
-            else
-              a(href=`data:${a.contentType};base64,${a.content.toString('base64')}`, download=a.filename, target='_blank')
-                if a.filename
-                  = `${a.filename}`
-                else
-                  = 'Unnamed file'
+            a(href=`data:${a.contentType};base64,${a.content.toString('base64')}`, download=a.filename, target='_blank')
+              if a.filename
+                = `${a.filename}`
+              else
+                = 'Unnamed file'
     if html
       p: strong HTML:
       p: iframe(seamless='seamless', srcdoc=`<base target='_top'>${html}`)

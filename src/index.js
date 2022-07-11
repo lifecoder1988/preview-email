@@ -40,6 +40,23 @@ const previewEmail = async (message, options) => {
 
   const parsed = await simpleParser(response.message);
 
+  //console.log(response.message)
+  console.log("AAAAA")
+  //console.log(parsed.attachments)
+  for(let i = 0 ; i < parsed.attachments.length ; i ++) {
+    console.log(parsed.attachments[i].contentType)
+    if (parsed.attachments[i].contentType == "message/rfc822") {
+      console.log(parsed.attachments[i])
+      const msg = await simpleParser(parsed.attachments[i].content)
+
+      const link = await previewEmail(msg,{open:false})
+      console.log(link)
+      parsed.attachments[i].content = link.toString()
+    }
+    //console.log(parsed.attachments[i].contentType)
+  }
+  console.log("MMMM")
+  console.log(parsed.attachments)
   const html = await renderFilePromise(
     options.template,
     Object.assign(parsed, {
@@ -55,7 +72,6 @@ const previewEmail = async (message, options) => {
 
   const url = options.urlTransform(filePath);
   if (options.open) await open(url, options.open);
-
   return url;
 };
 

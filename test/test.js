@@ -28,6 +28,10 @@ test('opens a preview email', async (t) => {
       {
         filename: 'test.txt',
         content: fs.createReadStream(path.join(__dirname, 'test.txt'))
+      },
+      {
+        filename: 'a.eml',
+        content: fs.createReadStream(path.join(__dirname, 'a.eml'))
       }
     ],
     headers: {
