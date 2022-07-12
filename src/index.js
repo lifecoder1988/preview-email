@@ -31,6 +31,8 @@ const previewEmail = async (message, options) => {
     urlTransform: (path) => `file://${path}`,
     ...options
   };
+  console.log(options)
+  console.log("dir " + options.dir)
   debug('message', message, 'options', options);
 
   if (typeof message !== 'object')
@@ -41,17 +43,15 @@ const previewEmail = async (message, options) => {
   const parsed = await simpleParser(response.message);
 
   //console.log(response.message)
-  console.log("AAAAA")
   //console.log(parsed.attachments)
   for(let i = 0 ; i < parsed.attachments.length ; i ++) {
     console.log(parsed.attachments[i].contentType)
     if (parsed.attachments[i].contentType == "message/rfc822") {
       console.log(parsed.attachments[i])
       const msg = await simpleParser(parsed.attachments[i].content)
-
       const link = await previewEmail(msg,{
         open:false,
-        ...options
+        dir: options.dir 
       } )
       console.log(link)
       parsed.attachments[i].content = link.toString()
@@ -72,7 +72,8 @@ const previewEmail = async (message, options) => {
   const filePath = `${options.dir}/${options.id}.html`;
   debug('filePath', filePath);
   await writeFile(filePath, html);
-
+  console.log(filePath)
+  console.log("QQQQQ")
   const url = options.urlTransform(filePath);
   if (options.open) await open(url, options.open);
   return url;

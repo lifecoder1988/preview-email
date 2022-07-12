@@ -11,7 +11,7 @@ f = fs.createReadStream("./test/a.eml")
 simpleParser(f, {},(err, parsed) => {
     console.log(parsed)
     console.log(parsed.attachments)
-    previewEmail(parsed,{open:false})
+    previewEmail(parsed,{open:false,dir:"./aaa"})
         .then(console.log)
         .catch(console.error);
 

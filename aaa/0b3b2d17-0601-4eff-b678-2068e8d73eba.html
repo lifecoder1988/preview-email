@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>测试eml嵌套</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <style type="text/css">
+      body {
+        font-family: arial, sans-serif;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      table {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 13px;
+      }
+      td {
+        padding: 6px 0 6px 0;
+      }
+      th {
+        text-align: right;
+        color: #999;
+        font-weight: normal;
+        padding: 6px 16px 6px 0
+      }
+      iframe {
+        border: 0;
+        height: 100%;
+        width: 100%;
+        min-height: 800px;
+        max-width: 600px;
+        display: block;
+        border: 1px solid black;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <p><strong>Subject:</strong></p>
+    <p>测试eml嵌套</p>
+    <p><strong>Headers:</strong></p>
+    <pre><code>Content-Type: message/rfc822<br>Content-ID: &lt;D0322F0EAA8DF94687251F8B10DDC2DF@apcprd04.prod.outlook.com&gt;<br>Content-Transfer-Encoding: base64<br>Content-Disposition: attachment<br>Subject: =?UTF-8?B?5rWL6K+VZW1s5bWM5aWX?=<br>Message-ID: &lt;CB55F60B-9195-4EE2-87A7-8C310C689E09@hillinsight.com&gt;<br>Date: Wed, 06 Jul 2022 10:24:08 +0000<br>MIME-Version: 1.0</code></pre>
+    <p><strong>Attachments:</strong></p>
+    <ul>
+      <li><a href="file://./aaa/63cb103a-127c-4cad-834e-84c70a0f4093.html" target="_blank">undefined.html</a>
+      </li>
+    </ul>
+  </body>
+</html>
