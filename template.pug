@@ -36,19 +36,40 @@ html
         display: block;
         border: 1px solid black;
       }
+      .inline > div {
+        display: inline-block;
+      }
+      .inline > .title {
+        font-weight: bold;
+      }
+      .inline {
+        line-height: 30px;
+      }
 
   body
     if headers.get('subject')
-      p: strong Subject:
-      p= headers.get('subject')
-    p: strong Headers:
-    pre
-      code
-        each headerLine, i in headerLines
-          = headerLine.line
-          if i < headerLines.length - 1
-            br
-                
+      div(class="subject inline")
+        div(class='title') Subject:
+        div(class="text")= headers.get('subject')
+    if headers.get('from')
+      div(class="from inline")
+        div(class='title') from:
+        div(class="text") !{headers.get('from').html}
+    if headers.get('to')
+      div(class="to inline")
+        div(class='title') to:
+        div(class="text") !{headers.get('to').html}
+
+    if headers.get('message-id')
+      div(class="message-id inline")
+        div(class='title') message-id:
+        div(class="text")= headers.get('message-id')
+
+    if date
+      div(class="date inline")
+        div(class='title') date:
+        div(class="text")= date 
+    
     if attachments && attachments.length > 0
       p: strong Attachments:
       ul

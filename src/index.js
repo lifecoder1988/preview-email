@@ -31,6 +31,8 @@ const previewEmail = async (message, options) => {
     urlTransform: (path) => `file://${path}`,
     ...options
   };
+  //options.dir = path.resolve(options.dir) 
+
   console.log(options)
   console.log("dir " + options.dir)
   debug('message', message, 'options', options);
@@ -38,9 +40,13 @@ const previewEmail = async (message, options) => {
   if (typeof message !== 'object')
     throw new Error('Message argument is required');
 
-  const response = await transport.sendMail(message);
+  //const response = await transport.sendMail(message);
 
-  const parsed = await simpleParser(response.message);
+  //const parsed = await simpleParser(response.message);
+  //const parsed = await simpleParser(message);
+  const parsed = message 
+  console.log("fisrt time parsed")
+  console.log(parsed)
 
   //console.log(response.message)
   //console.log(parsed.attachments)
@@ -53,13 +59,20 @@ const previewEmail = async (message, options) => {
         open:false,
         dir: options.dir 
       } )
-      console.log(link)
-      parsed.attachments[i].content = link.toString()
+      
+      console.log("dir = " + options.dir)
+      console.log("link = " + link)
+      let contentLink = link.toString().slice(7 + options.dir.length)
+      if (contentLink.startsWith("/")) {
+        contentLink = contentLink.slice(1)
+      }
+      console.log("content link = " + contentLink)
+      parsed.attachments[i].content = contentLink
     }
     //console.log(parsed.attachments[i].contentType)
   }
   console.log("MMMM")
-  console.log(parsed.attachments)
+  console.log(parsed)
   const html = await renderFilePromise(
     options.template,
     Object.assign(parsed, {
