@@ -49,7 +49,10 @@ const previewEmail = async (message, options) => {
       console.log(parsed.attachments[i])
       const msg = await simpleParser(parsed.attachments[i].content)
 
-      const link = await previewEmail(msg,{open:false})
+      const link = await previewEmail(msg,{
+        open:false,
+        ...options
+      } )
       console.log(link)
       parsed.attachments[i].content = link.toString()
     }
