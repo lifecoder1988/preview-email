@@ -29,10 +29,9 @@ html
       }
       iframe {
         border: 0;
-        height: 100%;
         width: 100%;
         min-height: 800px;
-        max-width: 600px;
+        max-width: 1000px;
         display: block;
         border: 1px solid black;
       }
@@ -45,11 +44,30 @@ html
       .inline {
         line-height: 30px;
       }
+     
+
 
   body
+    script.
+      function setIframeHeight(iframe) {
+        if (iframe) {
+          var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+          if (iframeWin.document.body) {
+          iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+          iframe.height = int(iframe.height) + 50
+          }
+        }
+      };
+      window.onload = function () {
+        setTimeout( () => {
+          setIframeHeight(document.getElementById('mailContent'));
+        },200)
+        //setIframeHeight(document.getElementById('mailContent'));
+      };
+
     if headers.get('subject')
       div(class="subject inline")
-        div(class='title') Subject:
+        div(class='title') Subject: #{hello()}
         div(class="text")= headers.get('subject')
     if headers.get('from')
       div(class="from inline")
@@ -86,7 +104,8 @@ html
                   = 'Unnamed file'
     if html
       p: strong HTML:
-      p: iframe(seamless='seamless', srcdoc=`<base target='_top'>${html}`)
-    if text
+      p: iframe(id="mailContent", scrolling="no", seamless='seamless', srcdoc=`<base target='_top'>${html}`)
+    //-if text
       p: strong TEXT:
       p: iframe(seamless='seamless', srcdoc=`<pre>${text}</pre>`)
+

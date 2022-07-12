@@ -76,6 +76,10 @@ const previewEmail = async (message, options) => {
   const html = await renderFilePromise(
     options.template,
     Object.assign(parsed, {
+      hello: () => {
+        console.log("AAAA")
+        return "world"
+      },
       cache: true,
       pretty: true,
       dayjs

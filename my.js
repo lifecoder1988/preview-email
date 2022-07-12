@@ -6,7 +6,7 @@ const previewEmail = require('./src/index.js');
 
 const fs = require("fs")
 
-f = fs.createReadStream("./test/a.eml")
+const f = fs.createReadStream("./test/b.eml")
 
 simpleParser(f, {},(err, parsed) => {
     console.log(parsed)
